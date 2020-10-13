@@ -43,6 +43,16 @@ jobs:
       - name: Build and Install Locally the Plugin
         run: ./gradlew -s clean check publishToMavenLocal
 
+      - name: Capture the Integration Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1.3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          check_name: Plugin Unit Test Results
+          files: "build/test-results/**/*.xml"
+          report_individual_runs: true
+          deduplicate_classes_by_file_name: false
+
 
   build-templates-and-app:
 
@@ -81,6 +91,16 @@ jobs:
 
       - name: Package the App and Templates
         run: ./gradlew -s clean check distZip
+
+      - name: Capture the Integration Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1.3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          check_name: App Test Results
+          files: "*/build/test-results/**/*.xml"
+          report_individual_runs: true
+          deduplicate_classes_by_file_name: false
 
       - name: Cache the Templates
         uses: actions/cache@v2
