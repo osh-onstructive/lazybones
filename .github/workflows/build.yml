@@ -102,6 +102,12 @@ jobs:
           report_individual_runs: true
           deduplicate_classes_by_file_name: false
 
+      - name: Create Artifact From The XML Test Results for Analysis
+        uses: actions/upload-artifact@v2
+        with:
+          name: AppIntegrationTestResults
+          path: lazybones-app/build/test-results/
+
       - name: Cache the Templates
         uses: actions/cache@v2
         with:
