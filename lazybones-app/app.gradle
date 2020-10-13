@@ -18,7 +18,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 ext {
-    groovyVersion = "2.4.3"
+    groovyVersion = "2.4.15"
     cachePath = new File(System.getProperty("user.home"), ".lazybones/templates").absolutePath
     isCiBuild = System.getProperty("drone.io") as boolean
     testWorkDir = file("$buildDir/testWork").path
@@ -37,7 +37,7 @@ sourceSets {
 }
 
 configurations {
-    integTestCompile.resolutionStrategy {
+    integTestImplementation.resolutionStrategy {
         force "org.codehaus.groovy:groovy-all:${groovyVersion}"
     }
 }
@@ -63,7 +63,7 @@ dependencies {
         exclude module: "groovy-all"
     }
 
-    integTestImplementation "org.codehaus.groovy:groovy-all:2.4.3",
+    integTestImplementation "org.codehaus.groovy:groovy-all:${groovyVersion}",
                      "commons-io:commons-io:2.4",
                      "co.freeside:betamax:1.1.2",
                      "org.littleshoot:littleproxy:1.1.0-beta1"
