@@ -48,6 +48,7 @@ repositories {
 
 dependencies {
     implementation "org.codehaus.groovy:groovy:${groovyVersion}"
+    implementation "org.codehaus.groovy:groovy-all:${groovyVersion}"
 
     implementation "commons-io:commons-io:2.4",
             "org.codehaus.groovy:groovy-json:${groovyVersion}",
@@ -161,8 +162,8 @@ distZip.dependsOn("test", "integTest")
 check.dependsOn("test", "integTest")
 
 task uploadDist(type: BintrayGenericUpload, dependsOn: "distZip") {
-    artifactFile = distZip.archivePath
-    artifactUrlPath = "lazybones/${version}/${distZip.archiveName}"
+    artifactFile = distZip.archiveFile.get().asFile
+    artifactUrlPath = "lazybones/${version}/${distZip.archiveFileName}"
     repositoryName = "pledbrook/lazybones-templates"
     packageName = "lazybones"
     licenses = ["Apache-2.0"]
